@@ -10,7 +10,9 @@ export type Match = {
     userId1: number,
     userId2: number,
     pokemonUser1: Pokemon[],
-    pokemonUser2: Pokemon[]
+    pokemonUser2: Pokemon[],
+    scoreUser1: number;
+    scoreUser2: number;
 }
 
 export type Invitation = {
