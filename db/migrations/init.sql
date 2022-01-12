@@ -11,6 +11,12 @@ CREATE TABLE IF NOT EXISTS accounts (
   FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
+INSERT INTO users (user_id, name) VALUES (1, 'Hazard4U');
+INSERT INTO users (user_id, name) VALUES (2, 'OnyX');
+
+INSERT INTO accounts (id, username, password, user_id) VALUES (1, 'theo', 'theo', 1);
+INSERT INTO accounts (id, username, password, user_id) VALUES (2, 'louis', 'louis', 2);
+
 CREATE TABLE IF NOT EXISTS matchs (
   match_id INTEGER PRIMARY KEY,
   user_id_1 INTEGER NOT NULL,

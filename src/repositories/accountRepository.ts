@@ -1,5 +1,6 @@
 import Database from "better-sqlite3";
 import fs from "fs";
+import { Account } from "../models/Accout";
 import migrations from "../../db/migrations/migrations.json";
 
 export default class AccountRepository {
@@ -29,7 +30,7 @@ export default class AccountRepository {
   
   }
 
-  connection(username: string, password: string) {
+  connection(username: string, password: string): Account {
     const statement = this.db.prepare("SELECT * FROM accounts WHERE username = ? AND password = ?");
     return statement.get(username, password);
   }
