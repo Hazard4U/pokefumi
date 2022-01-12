@@ -32,17 +32,12 @@ export default class UserRepository {
 
   getAllUsers(): User[] {
     const statement = this.db.prepare("SELECT * FROM users");
-    const rows: User[] = statement.all();
-    return rows;
+    return statement.all();
   }
 
   getUserById(userId: number): User {
     const statement = this.db.prepare("SELECT * FROM users WHERE user_id = ?");
-    const rows: User[] = statement.get(userId);
-    if(rows.length > 1){
-        throw new Error("More than one user with the same Id !");
-    }
-    return rows[0];
+    return statement.get(userId);
   }
 
   createUser(name: string) {

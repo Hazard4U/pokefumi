@@ -31,17 +31,12 @@ export default class MatchRepository {
 
   getAllMatchs(): Match[] {
     const statement = this.db.prepare("SELECT * FROM matchs");
-    const rows: Match[] = statement.all();
-    return rows;
+    return statement.all();
   }
 
   getMatchById(matchId: number): Match {
     const statement = this.db.prepare("SELECT * FROM matchs WHERE match_id = ?");
-    const rows: Match[] = statement.get(matchId);
-    if(rows.length > 1){
-        throw new Error("More than one match with the same Id !");
-    }
-    return rows[0];
+    return statement.get(matchId);
   }
 
   createMatch(userId1: number) {
