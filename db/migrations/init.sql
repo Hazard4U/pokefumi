@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL,
   password TEXT NOT NULL,
+  user_id INTEGER,
   FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
