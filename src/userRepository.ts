@@ -27,6 +27,7 @@ export default class UserRepository {
       console.log("Applying migrations on DB users...");
       migrations.forEach(applyMigration);
     }
+  
   }
 
   getAllUsers(): User[] {
