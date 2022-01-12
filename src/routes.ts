@@ -6,7 +6,7 @@ import { matchRoutes } from './matchRoutes'
 export const router = ( app: express.Application ) => {
     app.get('/', (req, res) => res.send('Hello World!'));
 
-    app.use('/user', userRoutes);
-    app.use('/match', matchRoutes);
+    app.use('/user', userRoutes.bind(this, app));
+    app.use('/match', matchRoutes.bind(this, app));
 }
 
