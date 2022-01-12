@@ -7,7 +7,7 @@ const listUsers = (): User[] => {
     return userRepository.getAllUsers()
 }
 
-const findUser = (userId: number): User[] => {
+const findUser = (userId: number): User => {
     return userRepository.getUserById(userId)
 }
 
