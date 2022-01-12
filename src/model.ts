@@ -5,6 +5,12 @@ export type User = {
     name: string;
 }
 
+export type Account = {
+    id: number;
+    username: string;
+    user_id: string;
+}
+
 export type Match = {
     id: number,
     userId1: number,

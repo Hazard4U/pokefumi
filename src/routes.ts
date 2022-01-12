@@ -1,10 +1,13 @@
 import * as express from "express"
+import * as path from "path"
 import * as UserController from "./userController"
 import { userRoutes } from './userRoutes'
 import { matchRoutes } from './matchRoutes'
 
-export const router = ( app: express.Application ) => {
-    app.get('/', (req, res) => res.send('Hello World!'));
+export const register = ( app: express.Application ) => {
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname + '/login.html'))
+    });
 
     app.use('/user', userRoutes.bind(this, app));
     app.use('/match', matchRoutes.bind(this, app));
