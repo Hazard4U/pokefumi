@@ -1,7 +1,7 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
 
-import { register } from './routes';
+import { router } from './routes';
 
 const app = express();
 app.use(bodyParser.json({
@@ -11,7 +11,7 @@ app.use(bodyParser.json({
     }
 }));
 
-register(app)
+router(app)
 
 export {app};
 
