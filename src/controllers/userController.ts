@@ -1,5 +1,5 @@
-import { User } from './model'
-import UserRepository from './userRepository'
+import { User } from '../models/User'
+import UserRepository from '../repositories/userRepository'
 
 const userRepository = new UserRepository()
 

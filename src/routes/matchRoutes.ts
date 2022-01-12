@@ -1,6 +1,6 @@
 import * as express from "express";
-import * as MatchController from "./matchController";
-import { Match } from "./model";
+import * as MatchController from "../controllers/matchController";
+import { Match } from "../models/Match";
 
 export const matchRoutes = express.Router();
 matchRoutes.route("/").get((req, res) => {

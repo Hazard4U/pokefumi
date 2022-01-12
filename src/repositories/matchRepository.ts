@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "fs";
-import migrations from "../db/migrations/migrations.json";
-import { Match } from "./model";
+import migrations from "../../db/migrations/migrations.json";
+import { Match } from "../models/Match";
 
 export default class MatchRepository {
   db: Database.Database;

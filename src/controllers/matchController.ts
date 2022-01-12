@@ -1,5 +1,5 @@
-import { Match } from './model'
-import MatchRepository from './matchRepository'
+import { Match } from '../models/Match'
+import MatchRepository from '../repositories/matchRepository'
 
 const matchRepository = new MatchRepository()
 

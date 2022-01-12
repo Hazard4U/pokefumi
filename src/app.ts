@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import * as bodyParser from 'body-parser';
 
-import { router } from './routes';
+import { router } from './routes/routes';
 
 const app = express();
 

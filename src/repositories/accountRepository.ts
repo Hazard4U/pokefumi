@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 import fs from "fs";
-import migrations from "../db/migrations/migrations.json";
+import migrations from "../../db/migrations/migrations.json";
 
 export default class AccountRepository {
     db: Database.Database;

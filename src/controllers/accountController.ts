@@ -1,5 +1,5 @@
-import { Account } from './model'
-import AccountRepository from './accountRepository'
+import { Account } from '../models/Accout'
+import AccountRepository from '../repositories/accountRepository'
 
 const accountRepository = new AccountRepository()
 

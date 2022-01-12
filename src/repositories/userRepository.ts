@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "fs";
-import migrations from "../db/migrations/migrations.json";
-import { User } from "./model";
+import migrations from "../../db/migrations/migrations.json";
+import { User } from "../models/User";
 
 export default class UserRepository {
   db: Database.Database;

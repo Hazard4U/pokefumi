@@ -1,6 +1,5 @@
 import * as express from "express"
 import * as path from "path"
-import * as UserController from "./userController"
 import { userRoutes } from './userRoutes'
 import { matchRoutes } from './matchRoutes'
 
