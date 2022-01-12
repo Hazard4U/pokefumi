@@ -35,10 +35,13 @@ export default class UserRepository {
     return rows;
   }
 
-  getUserById(userId: number) {
+  getUserById(userId: number): User {
     const statement = this.db.prepare("SELECT * FROM users WHERE user_id = ?");
     const rows: User[] = statement.get(userId);
-    return rows;
+    if(rows.length > 1){
+        throw new Error("More than one user with the same Id !");
+    }
+    return rows[0];
   }
 
   createUser(name: string) {
