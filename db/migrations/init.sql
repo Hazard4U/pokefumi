@@ -3,3 +3,10 @@ CREATE TABLE IF NOT EXISTS users (
   name	TEXT NOT NULL,
   score   INTEGER DEFAULT 0
 )
+
+CREATE TABLE IF NOT EXISTS accounts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL,
+  password TEXT NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES users(user_id)
+)
