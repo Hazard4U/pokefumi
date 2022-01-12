@@ -2,7 +2,7 @@
   "name": "pokefumi",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "tsc && cp -rf package.json dist/package.json",
