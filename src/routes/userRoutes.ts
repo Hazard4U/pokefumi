@@ -1,6 +1,7 @@
 import * as express from "express";
 import UserController from "../controllers/userController";
 export const userRoutes = express.Router();
+
 userRoutes.route("/").get((req, res) => {
   res.status(200).json(UserController.listUsers());
 });
