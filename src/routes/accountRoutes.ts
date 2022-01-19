@@ -11,9 +11,9 @@ accountRoutes.route("/login").get((req, res) => {
 
 })
 
-accountRoutes.route("/signup").post((req,res) => {
+accountRoutes.route("/signup").post(async (req,res) => {
     const { username, password, name }: { username: string, password: string, name: string } = req.body;
-    const [account, error] = AccountController.signup(username, password, name);
+    const [account, error] = await AccountController.signup(username, password, name);
 
     if (error) {
         res.status(403).send(error.message);
