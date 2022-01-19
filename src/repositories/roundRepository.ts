@@ -1,5 +1,6 @@
 import Database from "better-sqlite3";
 import fs from "fs";
+import DatabaseFactory from "../factories/databaseFactory";
 import migrations from "../../db/migrations/migrations.json";
 import { Round, RoundMapper} from "../models/Round";
 
@@ -7,7 +8,7 @@ export default class RoundRepository {
   db: Database.Database;
 
   constructor() {
-    this.db = new Database("db/rounds.db", { verbose: console.log });
+    this.db = DatabaseFactory.getInstance();
     this.applyMigrations();
   }
 

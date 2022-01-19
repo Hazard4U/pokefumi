@@ -3,12 +3,13 @@ import fs from "fs";
 import migrations from "../../db/migrations/migrations.json";
 import { Match, MatchMapper } from "../models/Match";
 import { Pokemon } from "pokenode-ts";
+import DatabaseFactory from "../factories/databaseFactory";
 
 export default class MatchRepository {
   db: Database.Database;
 
   constructor() {
-    this.db = new Database("db/matchs.db", { verbose: console.log });
+    this.db = DatabaseFactory.getInstance();
     this.applyMigrations();
   }
 

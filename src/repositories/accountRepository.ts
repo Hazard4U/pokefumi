@@ -1,4 +1,5 @@
 import Database from "better-sqlite3";
+import DatabaseFactory from "../factories/databaseFactory";
 import fs from "fs";
 import { Account } from "../models/Accout";
 import migrations from "../../db/migrations/migrations.json";
@@ -7,7 +8,7 @@ export default class AccountRepository {
     db: Database.Database;
 
   constructor() {
-    this.db = new Database("db/accounts.db", { verbose: console.log });
+    this.db = DatabaseFactory.getInstance();
     this.applyMigrations();
   }
 

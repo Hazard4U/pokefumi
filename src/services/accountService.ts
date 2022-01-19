@@ -3,7 +3,6 @@ import UserRepository from '../repositories/userRepository';
 import { Account } from '../models/Accout'
 import { addUser } from './userService'
 
-const userRepository = new UserRepository();
 const accountRepository = new AccountRepository();
 
 const listAccounts = (): Account[] => {
@@ -27,8 +26,7 @@ const signup = (username: string, password: string, name: string): Account => {
     let account
     console.log("signup", username, password, name)
     
-    const createSignUp = userRepository.db.transaction(() => {
-        console.log("something ?")
+    const createSignUp = accountRepository.db.transaction(() => {
         const user = addUser(name);
         account = addAccount(username, password, '' + user.id)
     })
