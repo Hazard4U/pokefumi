@@ -1,15 +1,13 @@
 import { Match } from "../models/Match";
 import MatchService from "../services/matchService";
 
-const matchService = new MatchService();
-
 export default class MatchController {
-  static listMatchs = matchService.getAllMatchs;
+  static listMatchs = MatchService.getAllMatchs;
 
-  static findMatch = matchService.getMatchById;
+  static findMatch = MatchService.getMatchById;
 
   static addMatch = (userId: number): Match[] => {
-    matchService.createMatch(userId);
-    return matchService.getAllMatchs();
+    MatchService.createMatch(userId);
+    return MatchService.getAllMatchs();
   };
 }
