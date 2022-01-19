@@ -1,6 +1,6 @@
 import AccountRepository from '../repositories/accountRepository'
 import UserRepository from '../repositories/userRepository';
-import { Account } from '../models/Accout'
+import { Account, AccountWithPassword } from '../models/Accout'
 import { addUser } from './userService'
 
 const accountRepository = new AccountRepository();
@@ -11,6 +11,10 @@ const listAccounts = (): Account[] => {
 
 const findAccount = (username: string): Account => {
     return accountRepository.getAccountByUsername(username);
+}
+
+const findAccountWithPassword = (username: string): AccountWithPassword => {
+    return accountRepository.getAccountWithPasswordByUsername(username)
 }
 
 const findAccountByRowId = (rowId: number | bigint): Account => {
@@ -36,4 +40,4 @@ const signup = (username: string, password: string, name: string): Account => {
     return account
 }
 
-export { listAccounts, signup }
+export { listAccounts, findAccount, findAccountWithPassword, signup }

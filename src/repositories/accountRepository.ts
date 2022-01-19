@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import DatabaseFactory from "../factories/databaseFactory";
 import fs from "fs";
-import { Account, AccountMapper } from "../models/Accout";
+import { Account, AccountMapper, AccountWithPassword, AccountWithPasswordMapper } from "../models/Accout";
 import migrations from "../../db/migrations/migrations.json";
 
 export default class AccountRepository {
@@ -44,6 +44,11 @@ export default class AccountRepository {
   getAccountByUsername(username: string): Account {
     const statement = this.db.prepare("SELECT * FROM accounts WHERE username = ?");
     return AccountMapper(statement.get(username));
+  }
+
+  getAccountWithPasswordByUsername(username: string): AccountWithPassword {
+    const statement = this.db.prepare("SELECT * FROM accounts WHERE username = ?");
+    return AccountWithPasswordMapper(statement.get(username));
   }
 
   getAccountByRowId(rowId: number | bigint): Account {
