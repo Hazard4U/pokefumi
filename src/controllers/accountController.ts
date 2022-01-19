@@ -1,24 +1,32 @@
-import * as bcrypt from 'bcrypt'
-import { Account } from '../models/Accout'
-import * as AccountService from '../services/accountService';
+import * as bcrypt from "bcrypt";
+import AccountService from "../services/accountService";
+import { Account } from "../models/Accout";
 
 const rounds = 5;
 
-const listAccounts = AccountService.listAccounts
+export default class AccountController {
+  static listAccounts = AccountService.listAccounts;
 
-const signup = async (username: string, password: string, name: string): Promise<[Account, Error]> => {
-    return await new Promise((resolve, reject) => bcrypt.hash(password, rounds, (err, hash) => {
+  static signup = async (
+    username: string,
+    password: string,
+    name: string
+  ): Promise<[Account, Error]> => {
+    return await new Promise((resolve, reject) =>
+      bcrypt.hash(password, rounds, (err, hash) => {
         if (err) {
-            resolve([null, err])
+          resolve([null, err]);
         }
         try {
-            const account = AccountService.signup(username, hash, name);
-            resolve([account, null])
+          const account = AccountService.signup(username, hash, name);
+          resolve([account, null]);
         } catch (sqliteError) {
-            const error = new Error("An account with the same username already exists.")
-            resolve([null, error])
+          const error = new Error(
+            "An account with the same username already exists."
+          );
+          resolve([null, error]);
         }
-    }));
+      })
+    );
+  };
 }
-
-export { listAccounts, signup }

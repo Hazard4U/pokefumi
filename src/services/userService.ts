@@ -1,19 +1,19 @@
-import { User } from '../models/User'
-import UserRepository from '../repositories/userRepository'
+import { User } from "../models/User";
+import UserRepository from "../repositories/userRepository";
 
-const userRepository = new UserRepository()
+const userRepository = new UserRepository();
 
-const listUsers = (): User[] => {
-    return userRepository.getAllUsers()
+export default class UserService {
+  static listUsers = (): User[] => {
+    return userRepository.getAllUsers();
+  };
+
+  static findUser = (userId: number | bigint): User => {
+    return userRepository.getUserById(userId);
+  };
+
+  static addUser = (name: string): User => {
+    const rowId = userRepository.createUser(name);
+    return this.findUser(rowId);
+  };
 }
-
-const findUser = (userId: number | bigint): User => {
-    return userRepository.getUserById(userId)
-}
-
-const addUser = (name: string): User => {
-    const rowId = userRepository.createUser(name)
-    return findUser(rowId);
-}
-
-export { listUsers, findUser, addUser }
