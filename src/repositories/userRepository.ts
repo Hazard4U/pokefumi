@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 import migrations from "../../db/migrations/migrations.json";
-import { User } from "../models/User";
+import { User, UserMapper } from "../models/User";
 
 export default class UserRepository {
   db: Database.Database;
@@ -32,12 +32,12 @@ export default class UserRepository {
 
   getAllUsers(): User[] {
     const statement = this.db.prepare("SELECT * FROM users");
-    return statement.all();
+    return statement.all().map((user) => UserMapper(user));
   }
 
   getUserById(userId: number): User {
     const statement = this.db.prepare("SELECT * FROM users WHERE user_id = ?");
-    return statement.get(userId);
+    return UserMapper(statement.get(userId));
   }
 
   createUser(name: string) {

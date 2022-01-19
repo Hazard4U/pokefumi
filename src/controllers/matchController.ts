@@ -1,19 +1,19 @@
 import { Match } from '../models/Match'
-import MatchRepository from '../repositories/matchRepository'
+import MatchService from '../services/matchService'
 
-const matchRepository = new MatchRepository()
+const matchService = new MatchService()
 
 const listMatchs = (): Match[] => {
-    return matchRepository.getAllMatchs()
+    return matchService.getAllMatchs()
 }
 
 const findMatch = (matchId: number): Match => {
-    return matchRepository.getMatchById(matchId)
+    return matchService.getMatchById(matchId)
 }
 
 const addMatch = (match: Partial<Match>): Match[] => {
-    matchRepository.createMatch(match.userId1);
-    return matchRepository.getAllMatchs()
+    matchService.createMatch(match.userId1);
+    return matchService.getAllMatchs()
 }
 
 export { listMatchs, findMatch, addMatch }
