@@ -12,7 +12,7 @@ userRoutes.route("/:id").get((req, res) => {
   res.status(200).json(UserController.findUser(userId));
 });
 
-userRoutes.route("/:id").post((req, res) => {
-  const newUser: User = req.body;
-  res.status(200).json(UserController.addUser(newUser));
+userRoutes.route("/").post((req, res) => {
+  const { name } : { name: string } = req.body;
+  res.status(200).json(UserController.addUser(name));
 });

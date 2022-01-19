@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-  user_id INTEGER PRIMARY KEY,
+  user_id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   score INTEGER DEFAULT 0
 );
@@ -10,12 +10,6 @@ CREATE TABLE IF NOT EXISTS accounts (
   user_id INTEGER,
   FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
-
-INSERT INTO users (user_id, name) VALUES (1, 'Hazard4U');
-INSERT INTO users (user_id, name) VALUES (2, 'OnyX');
-
-INSERT INTO accounts (username, password, user_id) VALUES ('theo', 'theo', 1);
-INSERT INTO accounts (username, password, user_id) VALUES ('louis', 'louis', 2);
 
 CREATE TABLE IF NOT EXISTS matchs (
   match_id INTEGER PRIMARY KEY,

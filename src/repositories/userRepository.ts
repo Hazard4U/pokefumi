@@ -35,12 +35,12 @@ export default class UserRepository {
     return statement.all().map((user) => UserMapper(user));
   }
 
-  getUserById(userId: number): User {
+  getUserById(userId: number | bigint): User {
     const statement = this.db.prepare("SELECT * FROM users WHERE user_id = ?");
     return UserMapper(statement.get(userId));
   }
 
-  createUser(name: string) {
+  createUser(name: string): number | bigint {
     const statement = this.db.prepare("INSERT INTO users (name) VALUES (?)");
     return statement.run(name).lastInsertRowid;
   }

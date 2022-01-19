@@ -1,19 +1,10 @@
 import { User } from '../models/User'
-import UserRepository from '../repositories/userRepository'
+import * as UserService from '../services/userService'
 
-const userRepository = new UserRepository()
+const listUsers = UserService.listUsers
 
-const listUsers = (): User[] => {
-    return userRepository.getAllUsers()
-}
+const findUser = UserService.findUser
 
-const findUser = (userId: number): User => {
-    return userRepository.getUserById(userId)
-}
-
-const addUser = (newUser: User): User[] => {
-    userRepository.createUser(newUser.name)
-    return userRepository.getAllUsers()
-}
+const addUser = UserService.addUser
 
 export { listUsers, findUser, addUser }

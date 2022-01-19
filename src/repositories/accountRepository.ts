@@ -34,4 +34,24 @@ export default class AccountRepository {
     const statement = this.db.prepare("SELECT * FROM accounts WHERE username = ? AND password = ?");
     return statement.get(username, password);
   }
+
+  getAllAccounts(): Account[] {
+    const statement = this.db.prepare("SELECT * from accounts");
+    return statement.all()
+  }
+
+  getAccountByUsername(username: string): Account {
+    const statement = this.db.prepare("SELECT * FROM accounts WHERE username = ?");
+    return statement.get(username);
+  }
+
+  getAccountByRowId(rowId: number | bigint): Account {
+    const statement = this.db.prepare("SELECT * FROM accounts WHERE rowid = ?");
+    return statement.get(rowId);
+  }
+
+  signup(username: string, password: string, user_id: string): number | bigint {
+    const statement = this.db.prepare("INSERT INTO accounts (username, password, user_id) VALUES (?, ?, ?)");
+    return statement.run(username, password, user_id).lastInsertRowid; 
+  }
 }

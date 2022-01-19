@@ -6,11 +6,11 @@ import { accountRoutes } from "./accountRoutes"
 
 export const router = ( app: express.Application ) => {
     app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname + '/login.html'))
+        res.sendFile(path.join(__dirname + '/../login.html'))
     });
 
     app.use('/user', userRoutes);
     app.use('/match', matchRoutes);
-    app.use('/login', accountRoutes);
+    app.use('/auth', accountRoutes);
 }
 

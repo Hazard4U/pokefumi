@@ -1,19 +1,26 @@
+import * as brypt from 'bcrypt'
 import { Account } from '../models/Accout'
-import AccountRepository from '../repositories/accountRepository'
+import * as AccountService from '../services/accountService';
 
-const accountRepository = new AccountRepository()
+const rounds = 5;
 
-const connection = (username: string, password: string): [Account, Error] => {
-    if (username && password) {
-        const accounts = accountRepository.connection(username, password)
-        if (accounts) {
-            return [accounts, null];
-        } else {
-            return [null, new Error("Wrong username or password")]
+const listAccounts = AccountService.listAccounts
+
+const signup = (username: string, password: string, name: string): [Account, Error] => {
+    let [account, error]: [account: Account, error: Error] = [null, null];
+    brypt.hash(password, rounds, (err, hash) => {
+        if (err) {
+            error = err
+            return
         }
-    } else {
-        return [null, new Error("Please enter a valid Username and Password!")];
-    }
+        try {
+            account = AccountService.signup(username, hash, name);
+        } catch (sqliteError) {
+            error = sqliteError
+            account = null
+        }
+    })
+    return [account, error]
 }
 
-export { connection }
+export { listAccounts, signup }
