@@ -1,10 +1,10 @@
 import * as express from "express";
-import * as AccountController from "../controllers/accountController";
-import { Account } from "../models/Accout";
+import AccountController from "../controllers/accountController";
 
 export const accountRoutes = express.Router();
+
 accountRoutes.route("/").get((req, res) => {
-    res.status(200).json(AccountController.listAccounts());
+  res.status(200).json(AccountController.listAccounts());
 });
 
 accountRoutes.route("/login").post(async (req, res) => {
@@ -25,8 +25,6 @@ accountRoutes.route("/signup").post(async (req,res) => {
     if (error) {
         res.status(403).send(error.message);
     } else {
-        // req.session.loggedIn = true;
-        // req.session.user = account;
         res.status(200).json(token);
     }
 })

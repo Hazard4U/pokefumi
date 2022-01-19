@@ -1,19 +1,13 @@
-import { Match } from '../models/Match'
-import MatchService from '../services/matchService'
+import { Match } from "../models/Match";
+import MatchService from "../services/matchService";
 
-const matchService = new MatchService()
+export default class MatchController {
+  static listMatchs = MatchService.getAllMatchs;
 
-const listMatchs = (): Match[] => {
-    return matchService.getAllMatchs()
+  static findMatch = MatchService.getMatchById;
+
+  static addMatch = (userId: number): Match[] => {
+    MatchService.createMatch(userId);
+    return MatchService.getAllMatchs();
+  };
 }
-
-const findMatch = (matchId: number): Match => {
-    return matchService.getMatchById(matchId)
-}
-
-const addMatch = (match: Partial<Match>): Match[] => {
-    matchService.createMatch(match.userId1);
-    return matchService.getAllMatchs()
-}
-
-export { listMatchs, findMatch, addMatch }

@@ -1,45 +1,39 @@
-import { Match } from "../../src/models/Match";
 import MatchRepository from "../repositories/matchRepository";
 
 const matchRepository = new MatchRepository();
 
 export default class MatchService {
-  getAllMatchs(): Match[] {
-    return matchRepository.getAllMatchs();
-  }
+  static getAllMatchs = matchRepository.getAllMatchs;
 
-  getMatchById(matchId: number): Match {
-    return matchRepository.getMatchById(matchId);
-  }
+  static getMatchById = matchRepository.getMatchById;
 
-  getMatchsByUserId(userId: number): Match[] {
-    return matchRepository.getMatchsByUserId(userId);
-  }
+  static getMatchsByUserId = matchRepository.getMatchsByUserId;
 
-  createMatch(userId1: number) {
-    return matchRepository.createMatch(userId1);
-  }
+  static createMatch = matchRepository.createMatch;
 
-  addPokemonUser1(matchId: number, pokemonId: number) {
-    const pokemonsId = matchRepository.getMatchById(matchId).pokemonsUser1;
+  static addPokemonUser1(matchId: number, pokemonId: number) {
+    const pokemonsId = this.getMatchById(matchId).pokemonsUser1;
     if (!pokemonsId.find((id) => id == pokemonId)) {
       pokemonsId.push(pokemonId);
       matchRepository.updatePokemonsUser1(matchId, pokemonsId.join(","));
     }
   }
 
-  addPokemonUser2(matchId: number, pokemonId: number) {
-    const pokemonsId = matchRepository.getMatchById(matchId).pokemonsUser2;
+  static addPokemonUser2(matchId: number, pokemonId: number) {
+    const pokemonsId = this.getMatchById(matchId).pokemonsUser2;
     if (!pokemonsId.find((id) => id == pokemonId)) {
       pokemonsId.push(pokemonId);
       matchRepository.updatePokemonsUser2(matchId, pokemonsId.join(","));
     }
   }
 
-  isMatchRunnable(matchId: number){
-    const match = matchRepository.getMatchById(matchId);
+  static isMatchRunnable(matchId: number) {
+    const match = this.getMatchById(matchId);
     const pokemonsIdUser1 = match.pokemonsUser1;
     const pokemonsIdUser2 = match.pokemonsUser2;
-    return pokemonsIdUser1.length === pokemonsIdUser2.length && pokemonsIdUser1.length === 10;
+    return (
+      pokemonsIdUser1.length === pokemonsIdUser2.length &&
+      pokemonsIdUser1.length === 10
+    );
   }
 }

@@ -1,6 +1,5 @@
 import * as express from "express";
-import * as MatchController from "../controllers/matchController";
-import { Match } from "../models/Match";
+import MatchController from "../controllers/matchController";
 
 export const matchRoutes = express.Router();
 matchRoutes.route("/").get((req, res) => {
@@ -13,6 +12,6 @@ matchRoutes.route("/:id").get((req, res) => {
 });
 
 matchRoutes.route("/").post((req, res) => {
-  const newMatch: Match = req.body;
-  res.status(200).json(MatchController.addMatch(newMatch));
+  const { userId }: { userId: number } = req.body;
+  res.status(200).json(MatchController.addMatch(userId));
 });

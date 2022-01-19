@@ -1,31 +1,17 @@
-import { Pokemon } from "pokenode-ts";
-import { Round } from "../models/Round";
 import RoundRepository from "../repositories/roundRepository";
 
 const roundRepository = new RoundRepository();
 
 export default class RoundService {
-  getAllRounds(): Round[] {
-    return roundRepository.getAllRounds();
-  }
+  getAllRounds = roundRepository.getAllRounds;
 
-  getRoundById(roundId: number): Round {
-    return roundRepository.getRoundById(roundId);
-  }
+  getRoundById = roundRepository.getRoundById;
 
-  getRoundsByMatchId(userId: number): Round[] {
-    return roundRepository.getRoundsByMatchId(userId);
-  }
+  getRoundsByMatchId = roundRepository.getRoundsByMatchId;
 
-  createRound(matchId: number, roundInMatch: number) {
-    return roundRepository.createRound(matchId, roundInMatch);
-  }
+  createRound = roundRepository.createRound;
 
-  addPokemonUser1(roundId: number, pokemonId: number) {
-    roundRepository.updatePokemonUser1(roundId, pokemonId);
-  }
+  addPokemonUser1 = roundRepository.updatePokemonUser1;
 
-  addPokemonUser2(roundId: number, pokemonId: number) {
-    roundRepository.updatePokemonUser2(roundId, pokemonId);
-  }
+  addPokemonUser2 = roundRepository.updatePokemonUser2;
 }

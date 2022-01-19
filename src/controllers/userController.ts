@@ -1,10 +1,9 @@
-import { User } from '../models/User'
-import * as UserService from '../services/userService'
+import UserService from "../services/userService";
 
-const listUsers = UserService.listUsers
+export default class UserController {
+  static listUsers = UserService.listUsers;
 
-const findUser = UserService.findUser
+  static findUser = UserService.findUser;
 
-const addUser = UserService.addUser
-
-export { listUsers, findUser, addUser }
+  static addUser = UserService.addUser;
+}
