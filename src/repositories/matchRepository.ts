@@ -2,7 +2,6 @@ import Database from "better-sqlite3";
 import fs from "fs";
 import migrations from "../../db/migrations/migrations.json";
 import { Match, MatchMapper } from "../models/Match";
-import { Pokemon } from "pokenode-ts";
 import DatabaseFactory from "../factories/databaseFactory";
 
 export default class MatchRepository {
