@@ -12,8 +12,7 @@ export default class AccountController {
 
   static signup = async (
     username: string,
-    password: string,
-    name: string
+    password: string
   ): Promise<[Token, Error]> => {
     return await new Promise((resolve, reject) =>
       bcrypt.hash(password, rounds, (err, hash) => {
@@ -21,7 +20,7 @@ export default class AccountController {
           resolve([null, err]);
         }
         try {
-          const account = AccountService.signup(username, hash, name);
+          const account = AccountService.addAccount(username, hash);
           resolve([{token: generateToken(account)}, null])
         } catch (sqliteError) {
           const error = new Error(
@@ -48,8 +47,16 @@ export default class AccountController {
     })
   }
 
-  
+  static verify = async ({ token }: Token): Promise<[string | jwt.JwtPayload, Error, number]> => {
+    return await new Promise((resolve, reject) => {
+      if (!token) resolve([null, new Error("please provide a token"), 404])
 
+      jwt.verify(token, tokenSecret, (err, value) => {
+        if (err) resolve([null, new Error("failed to authenticate token"), 403])
+        resolve([(value as jwt.JwtPayload).data, null, 200])
+      })
+    })
+  }
 }
 
 function generateToken(account: Account) {

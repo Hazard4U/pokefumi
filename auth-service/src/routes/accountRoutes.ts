@@ -19,12 +19,24 @@ accountRoutes.route("/login").post(async (req, res) => {
 })
 
 accountRoutes.route("/signup").post(async (req,res) => {
-    const { username, password, name }: { username: string, password: string, name: string } = req.body;
-    const [token, error] = await AccountController.signup(username, password, name);
+    const { username, password }: { username: string, password: string } = req.body;
+    const [token, error] = await AccountController.signup(username, password);
 
     if (error) {
         res.status(403).send(error.message);
     } else {
         res.status(200).json(token);
+    }
+})
+
+accountRoutes.route("/verify").get(async (req, res) => {
+    const token = req.headers.authorization.split(" ")[1]
+    
+    const [result, error, httpCode] = await AccountController.verify({ token })
+
+    if (error) { 
+        res.status(httpCode).send(error.message);
+    } else {
+        res.status(httpCode).json(result);
     }
 })
