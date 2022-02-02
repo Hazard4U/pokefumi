@@ -5,13 +5,13 @@ import UserService from "./userService";
 const accountRepository = new AccountRepository();
 
 export default class AccountService {
-  static listAccounts = accountRepository.getAllAccounts;
+  static listAccounts = accountRepository.getAllAccounts.bind(accountRepository);
 
-  static findAccount = accountRepository.getAccountByUsername;
+  static findAccount = accountRepository.getAccountByUsername.bind(accountRepository);
 
-  static findAccountWithPassword = accountRepository.getAccountWithPasswordByUsername
+  static findAccountWithPassword = accountRepository.getAccountWithPasswordByUsername.bind(accountRepository)
 
-  static findAccountByRowId = accountRepository.getAccountByRowId
+  static findAccountByRowId = accountRepository.getAccountByRowId.bind(accountRepository)
 
   static addAccount = (
     username: string,

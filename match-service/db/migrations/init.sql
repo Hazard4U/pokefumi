@@ -4,13 +4,6 @@ CREATE TABLE IF NOT EXISTS users (
   score INTEGER DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS accounts (
-  username TEXT PRIMARY KEY,
-  password TEXT NOT NULL,
-  user_id INTEGER,
-  FOREIGN KEY(user_id) REFERENCES users(user_id)
-);
-
 CREATE TABLE IF NOT EXISTS matchs (
   match_id INTEGER PRIMARY KEY,
   user_id_1 INTEGER NOT NULL,
