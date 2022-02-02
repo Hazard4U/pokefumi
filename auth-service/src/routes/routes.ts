@@ -1,7 +1,5 @@
 import * as express from "express"
 import * as path from "path"
-import { userRoutes } from './userRoutes'
-import { matchRoutes } from './matchRoutes'
 import { accountRoutes } from "./accountRoutes"
 
 export const router = ( app: express.Application ) => {
@@ -9,8 +7,6 @@ export const router = ( app: express.Application ) => {
         res.sendFile(path.join(__dirname + '/../login.html'))
     });
 
-    app.use('/user', userRoutes);
-    app.use('/match', matchRoutes);
     app.use('/auth', accountRoutes);
 }
 
