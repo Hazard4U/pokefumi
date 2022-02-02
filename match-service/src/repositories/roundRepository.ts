@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import fs from "fs";
 import DatabaseFactory from "../factories/databaseFactory";
 import migrations from "../../db/migrations/migrations.json";
-import { Round, RoundMapper} from "../models/Round";
+import { Round, RoundMapper } from "../models/Round";
 
 export default class RoundRepository {
   db: Database.Database;
@@ -46,7 +46,7 @@ export default class RoundRepository {
     const statement = this.db.prepare(
       "SELECT * FROM rounds WHERE match_id = ?"
     );
-    return statement.all(matchId).map((round) => RoundMapper(round));;
+    return statement.all(matchId).map((round) => RoundMapper(round));
   }
 
   createRound(matchId: number, roundInMatch: number) {
@@ -74,13 +74,13 @@ export default class RoundRepository {
     const statement = this.db.prepare(
       "UPDATE rounds SET pokemon_user_1 = ? WHERE round_id = ?"
     );
-    statement.run(roundId, pokemonUser1);
+    statement.run(pokemonUser1, roundId);
   }
 
   updatePokemonUser2(roundId: number, pokemonUser2: number) {
     const statement = this.db.prepare(
       "UPDATE rounds SET pokemon_user_2 = ? WHERE round_id = ?"
     );
-    statement.run(roundId, pokemonUser2);
+    statement.run(pokemonUser2, roundId);
   }
 }

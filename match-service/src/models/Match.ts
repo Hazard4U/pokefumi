@@ -12,10 +12,8 @@ export type Match = {
 };
 
 export const MatchMapper = (object: any): Match => {
-  const pokemonsUser1 = object.pokemons_user_1;
-  pokemonsUser1?.split(",");
-  const pokemonsUser2 = object.pokemons_user_2;
-  pokemonsUser2?.split(",");
+  const pokemonsUser1 = object.pokemons_user_1?.split(",") ?? [];
+  const pokemonsUser2 = object.pokemons_user_2?.split(",") ?? [];
   return {
     id: object.match_id,
     userId1: object.user_id_1,
