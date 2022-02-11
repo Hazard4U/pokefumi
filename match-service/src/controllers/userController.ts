@@ -12,4 +12,8 @@ export default class UserController {
   static addUser(name: string){
     return UserService.addUser(name);
   }
+
+  static deleteUser(userId: number){
+    return UserService.deleteUser(userId)
+  }
 }

@@ -14,19 +14,16 @@ export default class AccountController {
     username: string,
     password: string
   ): Promise<[Token, Error]> => {
-    return await new Promise((resolve, reject) =>
-      bcrypt.hash(password, rounds, (err, hash) => {
+    return await new Promise(async (resolve, reject) =>
+      bcrypt.hash(password, rounds, async (err, hash) => {
         if (err) {
           resolve([null, err]);
         }
         try {
-          const account = AccountService.addAccount(username, hash);
+          const account = await AccountService.addAccount(username, hash);
           resolve([{token: generateToken(account)}, null])
-        } catch (sqliteError) {
-          const error = new Error(
-            "An account with the same username already exists."
-          );
-          resolve([null, sqliteError]);
+        } catch (error) {
+          resolve([null, error]);
         }
       })
     );

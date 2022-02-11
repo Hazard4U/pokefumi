@@ -14,7 +14,9 @@ app.use(bodyParser.json({
     }
 }));
 
-app.all('*', checkAuth)
+app.all('/match', checkAuth)
+app.all('/round', checkAuth)
+app.all('/pokemon', checkAuth)
 
 router(app)
 
