@@ -16,4 +16,8 @@ export default class UserService {
     const rowId = userRepository.createUser(name);
     return this.findUser(rowId);
   };
+
+  static deleteUser = (userId: number)=> {
+    return userRepository.deleteUserById(userId)
+  }
 }

@@ -56,8 +56,8 @@ export default class AccountRepository {
     return AccountMapper(statement.get(rowId));
   }
 
-  signup(username: string, password: string): number | bigint {
-    const statement = this.db.prepare("INSERT INTO accounts (username, password) VALUES (?, ?)");
-    return statement.run(username, password).lastInsertRowid; 
+  signup(username: string, password: string, user_id: number): number | bigint {
+    const statement = this.db.prepare("INSERT INTO accounts (username, password, user_id) VALUES (?, ?, ?)");
+    return statement.run(username, password, user_id).lastInsertRowid; 
   }
 }

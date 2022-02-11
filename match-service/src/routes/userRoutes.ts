@@ -1,3 +1,4 @@
+import { SqliteError } from "better-sqlite3";
 import * as express from "express";
 import UserController from "../controllers/userController";
 export const userRoutes = express.Router();
@@ -13,5 +14,18 @@ userRoutes.route("/:id").get((req, res) => {
 
 userRoutes.route("/").post((req, res) => {
   const { name } : { name: string } = req.body;
-  res.status(200).json(UserController.addUser(name));
+  try {
+    res.status(200).json(UserController.addUser(name));
+  } catch (error) {
+    if (error instanceof SqliteError) {
+      res.status(403).json(error)
+    } else {
+      res.status(500).json(error)
+    }
+  }
 });
+
+userRoutes.route("/:id").delete((req, res) => {
+  const userId: number = parseFloat(req.params.id);
+  res.status(200).json(UserController.deleteUser(userId));
+})

@@ -45,4 +45,9 @@ export default class UserRepository {
     const statement = this.db.prepare("INSERT INTO users (name) VALUES (?)");
     return statement.run(name).lastInsertRowid;
   }
+
+  deleteUserById(userId: number) {
+    const statement = this.db.prepare("DELETE FROM users WHERE user_id = ?")
+    return statement.run(userId)
+  }
 }

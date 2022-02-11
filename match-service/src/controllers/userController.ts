@@ -6,4 +6,6 @@ export default class UserController {
   static findUser = UserService.findUser;
 
   static addUser = UserService.addUser;
+
+  static deleteUser = UserService.deleteUser;
 }
