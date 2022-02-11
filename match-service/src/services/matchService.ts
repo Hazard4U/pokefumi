@@ -3,27 +3,44 @@ import MatchRepository from "../repositories/matchRepository";
 const matchRepository = new MatchRepository();
 
 export default class MatchService {
-  static getAllMatchs = matchRepository.getAllMatchs;
+  static getAllMatchs() {
+    return matchRepository.getAllMatchs();
+  }
 
-  static getMatchById = matchRepository.getMatchById;
+  static getMatchById(matchId: number) {
+    return matchRepository.getMatchById(matchId);
+  }
+  static getMatchsByUserId(userId: number) {
+    return matchRepository.getMatchsByUserId(userId);
+  }
 
-  static getMatchsByUserId = matchRepository.getMatchsByUserId;
-
-  static createMatch = matchRepository.createMatch;
-
-  static addPokemonUser1(matchId: number, pokemonId: number) {
-    const pokemonsId = this.getMatchById(matchId).pokemonsUser1;
-    if (!pokemonsId.find((id) => id == pokemonId)) {
-      pokemonsId.push(pokemonId);
-      matchRepository.updatePokemonsUser1(matchId, pokemonsId.join(","));
+  static createMatch(userId1: number, userId2: number | null) {
+    const matchId = matchRepository.createMatch(userId1);
+    if(userId2){
+      matchRepository.updateUser2(Number(matchId), userId2);
     }
   }
 
-  static addPokemonUser2(matchId: number, pokemonId: number) {
-    const pokemonsId = this.getMatchById(matchId).pokemonsUser2;
-    if (!pokemonsId.find((id) => id == pokemonId)) {
+  static setUser2(matchId: number, userId2: number) {
+    matchRepository.updateUser2(matchId, userId2);
+  }
+
+  static setRound(matchId: number, roundId: number) {
+    matchRepository.updateRound(matchId, roundId);
+  }
+  static addPokemonToUser(matchId: number, userId:number, pokemonId: number) {
+    const match = MatchService.getMatchById(matchId);
+    let updateMethod;
+    if(match.userId1 === userId){
+      updateMethod = matchRepository.updatePokemonsUser1;
+    }else{
+      updateMethod = matchRepository.updatePokemonsUser2;
+    }
+
+    const pokemonsId = MatchService.getMatchById(matchId).pokemonsUser1;
+    if (!pokemonsId.find((id: number) => id == pokemonId)) {
       pokemonsId.push(pokemonId);
-      matchRepository.updatePokemonsUser2(matchId, pokemonsId.join(","));
+      updateMethod(matchId, pokemonsId.join(","));
     }
   }
 

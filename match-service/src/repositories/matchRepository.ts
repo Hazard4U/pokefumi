@@ -56,17 +56,31 @@ export default class MatchRepository {
     return statement.run(userId1).lastInsertRowid;
   }
 
+  updateUser2(matchId: number, userId2: number) {
+    const statement = this.db.prepare(
+      "UPDATE matchs SET user_id_2 = ? WHERE match_id = ?"
+    );
+    statement.run(userId2, matchId);
+  }
+
+  updateRound(matchId: number, roundId: number) {
+    const statement = this.db.prepare(
+      "UPDATE matchs SET round_id = ? WHERE match_id = ?"
+    );
+    statement.run(roundId, matchId);
+  }
+
   updatePokemonsUser1(matchId: number, pokemonsUser1: string) {
     const statement = this.db.prepare(
-      "UPDATE matchs SET pokemon_user_1 = ? WHERE match_id = ?"
+      "UPDATE matchs SET pokemons_user_1 = ? WHERE match_id = ?"
     );
-    statement.run(matchId, pokemonsUser1);
+    statement.run(pokemonsUser1, matchId);
   }
 
   updatePokemonsUser2(matchId: number, pokemonsUser2: string) {
     const statement = this.db.prepare(
-      "UPDATE matchs SET pokemon_user_2 = ? WHERE match_id = ?"
+      "UPDATE matchs SET pokemons_user_2 = ? WHERE match_id = ?"
     );
-    statement.run(matchId, pokemonsUser2);
+    statement.run(pokemonsUser2, matchId);
   }
 }

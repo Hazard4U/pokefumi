@@ -1,17 +1,34 @@
 import RoundRepository from "../repositories/roundRepository";
+import MatchService from "./matchService";
 
 const roundRepository = new RoundRepository();
 
 export default class RoundService {
-  getAllRounds = roundRepository.getAllRounds;
+  static getAllRounds() {
+    return roundRepository.getAllRounds();
+  }
 
-  getRoundById = roundRepository.getRoundById;
+  static getRoundById(roundId: number) {
+    return roundRepository.getRoundById(roundId);
+  }
 
-  getRoundsByMatchId = roundRepository.getRoundsByMatchId;
+  static getRoundsByMatchId(matchId: number) {
+    return roundRepository.getRoundsByMatchId(matchId);
+  }
 
-  createRound = roundRepository.createRound;
+  static createRound(matchId: number) {
+    const roundInMatch = roundRepository.getRoundsByMatchId(matchId)?.length+1;
+    const roundId = roundRepository.createRound(matchId, roundInMatch);
+    MatchService.setRound(matchId, Number(roundId));
+  }
 
-  addPokemonUser1 = roundRepository.updatePokemonUser1;
-
-  addPokemonUser2 = roundRepository.updatePokemonUser2;
+  static setPokemonToUser(roundId: number, userId:number, pokemonId: number) {
+    const round = RoundService.getRoundById(roundId);
+    const match = MatchService.getMatchById(round.matchId);
+    if (match.userId1 === userId) {
+      roundRepository.updatePokemonUser1(roundId, pokemonId);
+    } else {
+      roundRepository.updatePokemonUser2(roundId, pokemonId);
+    }
+  }
 }
