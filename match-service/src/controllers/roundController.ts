@@ -11,9 +11,8 @@ export default class MatchController {
     return RoundService.getRoundById(roundId);
   }
 
-  static createRound(matchId: number): Round[] {
-    RoundService.createRound(matchId);
-    return RoundService.getAllRounds();
+  static createRound(matchId: number): Round {
+    return RoundService.createRound(matchId);
   }
 
   static addPokemonToRound(roundId: number, userId: number, pokemonId: number) {

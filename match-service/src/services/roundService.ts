@@ -20,6 +20,7 @@ export default class RoundService {
     const roundInMatch = roundRepository.getRoundsByMatchId(matchId)?.length+1;
     const roundId = roundRepository.createRound(matchId, roundInMatch);
     MatchService.setRound(matchId, Number(roundId));
+    return this.getRoundById(Number(roundId));
   }
 
   static setPokemonToUser(roundId: number, userId:number, pokemonId: number) {
