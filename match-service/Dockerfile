@@ -1,10 +1,12 @@
 FROM node:17.4.0
 
-WORKDIR /usr/src/app
+WORKDIR /match/
 
 COPY . .
 
 RUN npm install 
+RUN npm install nodemon
+RUN npm run build
 
 CMD ["npm", "start"]
 

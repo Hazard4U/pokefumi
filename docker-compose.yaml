@@ -3,8 +3,22 @@ services:
     build: ./auth-service/
     ports:
       - "5000:5000"
+    volumes:
+      - ./auth-service/src/:/auth/src/
+    command: npm run debug
   game:
     build: ./match-service/
     ports:
-      - "5001:5000"  
-  
+      - "5001:5000"
+    volumes:
+      - ./match-service/src/:/match/src/
+    command: npm run debug
+  proxy:
+    image: nginx
+    volumes:
+      - ./proxy:/etc/nginx:ro           #En read-only 
+    ports:
+      - "80:80"
+    depends_on:
+      - auth
+      - game

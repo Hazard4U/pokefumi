@@ -7,7 +7,8 @@
     "prebuild": "rm -rf dist/*",
     "build": "tsc && cp -rf package.json dist/package.json && cp -rf private.key dist/private.key && cp -rf src/public/* dist/src/",
     "prestart": "npm run build",
-    "start": "ts-node ."
+    "start": "ts-node .",
+    "debug": "nodemon --inspect=0.0.0.0:9229 dist/index.js"
   },
   "keywords": [],
   "author": "",
