@@ -1,14 +1,14 @@
-import got, { CancelableRequest } from "got";
+import axios, { AxiosResponse } from 'axios'
 import { Pokemon } from "pokenode-ts";
 
 const pokemonsUrl = "https://pokeapi.co/api/v2/pokemon";
 
 export default class PokemonRepository {
-  getAllPokemons(): CancelableRequest<Pokemon[]> {
-    return got(pokemonsUrl).json();
+  async getAllPokemons(): Promise<Pokemon[]>{
+    return await (await axios.get<Pokemon[]>(pokemonsUrl)).data
   }
 
-  getPokemonById(pokemonId: number): CancelableRequest<Pokemon> {
-    return got(`${pokemonsUrl}/${pokemonId}`).json();
+  async getPokemonById(pokemonId: number): Promise<Pokemon> {
+    return await (await axios.get<Pokemon>(`${pokemonsUrl}/${pokemonId}`)).data
   }
 }

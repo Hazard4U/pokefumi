@@ -2,10 +2,10 @@ import * as bcrypt from 'bcrypt'
 import { Account, AccountMapper } from '../models/Accout'
 import AccountService from '../services/accountService';
 import jwt from 'jsonwebtoken'
+import fs from 'fs'
 import { Token } from '../models/Token';
 
 const rounds = 5;
-const tokenSecret = "Patate"
 
 export default class AccountController {
   static listAccounts = AccountService.listAccounts;
@@ -26,7 +26,7 @@ export default class AccountController {
           const error = new Error(
             "An account with the same username already exists."
           );
-          resolve([null, error]);
+          resolve([null, sqliteError]);
         }
       })
     );
@@ -46,19 +46,9 @@ export default class AccountController {
       })
     })
   }
-
-  static verify = async ({ token }: Token): Promise<[string | jwt.JwtPayload, Error, number]> => {
-    return await new Promise((resolve, reject) => {
-      if (!token) resolve([null, new Error("please provide a token"), 404])
-
-      jwt.verify(token, tokenSecret, (err, value) => {
-        if (err) resolve([null, new Error("failed to authenticate token"), 403])
-        resolve([(value as jwt.JwtPayload).data, null, 200])
-      })
-    })
-  }
 }
 
 function generateToken(account: Account) {
-    return jwt.sign({data: account}, tokenSecret, {expiresIn: '24h'})
+  const privateKEY = fs.readFileSync('./private.key', 'utf8');
+  return jwt.sign({data: account}, privateKEY, {expiresIn: '24h', algorithm: 'RS256'})
 }

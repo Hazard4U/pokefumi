@@ -28,15 +28,3 @@ accountRoutes.route("/signup").post(async (req,res) => {
         res.status(200).json(token);
     }
 })
-
-accountRoutes.route("/verify").get(async (req, res) => {
-    const token = req.headers.authorization.split(" ")[1]
-    
-    const [result, error, httpCode] = await AccountController.verify({ token })
-
-    if (error) { 
-        res.status(httpCode).send(error.message);
-    } else {
-        res.status(httpCode).json(result);
-    }
-})

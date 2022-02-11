@@ -5,7 +5,7 @@
   "main": "dist/src/index.js",
   "scripts": {
     "prebuild": "rm -rf dist/*",
-    "build": "tsc && cp -rf package.json dist/package.json && cp -rf src/public/* dist/src/",
+    "build": "tsc && cp -rf package.json dist/package.json && cp -rf private.key dist/private.key && cp -rf src/public/* dist/src/",
     "prestart": "npm run build",
     "start": "ts-node ."
   },
