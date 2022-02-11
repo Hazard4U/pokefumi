@@ -42,6 +42,3 @@ yarn.lock
 
 # Ignore database
 **/db/database.db
-
-**/private.key
-**/public.key
