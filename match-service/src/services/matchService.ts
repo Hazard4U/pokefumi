@@ -1,3 +1,4 @@
+import { Match } from "../models/Match";
 import MatchRepository from "../repositories/matchRepository";
 
 const matchRepository = new MatchRepository();
@@ -14,11 +15,12 @@ export default class MatchService {
     return matchRepository.getMatchsByUserId(userId);
   }
 
-  static createMatch(userId1: number, userId2: number | null) {
+  static createMatch(userId1: number, userId2: number | null): Match {
     const matchId = matchRepository.createMatch(userId1);
     if(userId2){
       matchRepository.updateUser2(Number(matchId), userId2);
     }
+    return this.getMatchById(Number(matchId));
   }
 
   static setUser2(matchId: number, userId2: number) {

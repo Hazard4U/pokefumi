@@ -10,9 +10,8 @@ export default class MatchController {
     return MatchService.getMatchById(matchId);
   }
 
-  static createMatch(userId: number, userId2: number | null): Match[] {
-    MatchService.createMatch(userId, userId2);
-    return MatchService.getAllMatchs();
+  static createMatch(userId: number, userId2: number | null): Match {
+    return MatchService.createMatch(userId, userId2);
   }
 
   static addPokemonToMatch(

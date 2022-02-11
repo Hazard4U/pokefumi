@@ -1,9 +1,15 @@
 import UserService from "../services/userService";
 
 export default class UserController {
-  static listUsers = UserService.listUsers;
+  static listUsers(){
+    return UserService.listUsers();
+  };
 
-  static findUser = UserService.findUser;
+  static findUser(userId: number | bigint){
+    return UserService.findUser(userId);
+  };
 
-  static addUser = UserService.addUser;
+  static addUser(name: string){
+    return UserService.addUser(name);
+  }
 }
