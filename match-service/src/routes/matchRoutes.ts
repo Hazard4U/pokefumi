@@ -12,22 +12,21 @@ matchRoutes.route("/:id").get((req, res) => {
 });
 
 matchRoutes.route("/").post((req, res) => {
-  const { userId, userId2 }: { userId: number, userId2: number | null } = req.body;
+  const {userId2}: {userId2: number | null } = req.body;
+  const {user_id: userId}: {user_id: number} = res.locals.user;
   res.status(200).json(MatchController.createMatch(userId, userId2));
 });
 
 matchRoutes.route("/:id/invite").post((req, res) => {
-  // TODO UserId
   const matchId: number = parseFloat(req.params.id);
-  const userId = 2
-  res.status(200).json(MatchController.setUser2(matchId, userId));
+  const {userId2}: {userId2: number} = req.body;
+  res.status(200).json(MatchController.setUser2(matchId, userId2));
 });
 
 
 matchRoutes.route("/:id/pokemon").post((req, res) => {
-  // TODO userID
   const matchId: number = parseFloat(req.params.id);
-  const userId = 1;
+  const {user_id: userId}: {user_id: number} = res.locals.user;
   let { pokemonId }: { pokemonId: number } = req.body;
   if (!pokemonId || pokemonId.toString().trim() === "") {
     res.status(400).send(`Le paramètre "pokemonId" ne peut être vide !`);

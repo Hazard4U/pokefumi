@@ -16,11 +16,21 @@ export default class MatchService {
   }
 
   static createMatch(userId1: number, userId2: number | null): Match {
-    const matchId = matchRepository.createMatch(userId1);
-    if(userId2){
-      matchRepository.updateUser2(Number(matchId), userId2);
+    const matchId = Number(matchRepository.createMatch(userId1));
+    try{
+      if(userId2){
+        matchRepository.updateUser2(matchId, userId2);
+      }
+    }catch(error){
+      console.error(error);
+      this.deleteMatch(matchId);
+      throw new Error("Impossible d'ajouter le deuxième joueur !");
     }
     return this.getMatchById(Number(matchId));
+  }
+
+  static deleteMatch(matchId: number){
+    matchRepository.deleteMatchById(matchId);
   }
 
   static setUser2(matchId: number, userId2: number) {

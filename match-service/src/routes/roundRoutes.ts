@@ -17,9 +17,8 @@ roundRoutes.route("/").post((req, res) => {
 });
 
 roundRoutes.route("/:id/pokemon").post((req, res) => {
-  // TODO userID
   const roundId: number = parseFloat(req.params.id);
-  const userId = 1;
+  const {user_id: userId}: {user_id: number} = res.locals.user;
   const { pokemonId }: { pokemonId: number } = req.body;
   if (!pokemonId || pokemonId.toString().trim() === "") {
     res.status(400).send(`Le paramètre "pokemonId" ne peut être vide !`);

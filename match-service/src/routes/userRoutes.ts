@@ -27,5 +27,10 @@ userRoutes.route("/").post((req, res) => {
 
 userRoutes.route("/:id").delete((req, res) => {
   const userId: number = parseFloat(req.params.id);
-  res.status(200).json(UserController.deleteUser(userId));
+  const {user_id: currentUserId}: {user_id: number} = res.locals.user;
+  if(userId === currentUserId){
+    res.status(200).json(UserController.deleteUser(userId));
+  }else{
+    res.status(403).json(new Error("Impossible de supprimer un autre utilisateur que soit!"))
+  }
 })

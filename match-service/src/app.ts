@@ -17,7 +17,13 @@ app.use(bodyParser.json({
 app.all('/match', checkAuth)
 app.all('/round', checkAuth)
 app.all('/pokemon', checkAuth)
-
+app.all('/user', (req, res, next) => {
+    const allowedPostRoutes = ["/user/"];
+    if(req.method == "POST" && allowedPostRoutes.includes(req.path)){
+        return next();
+    }
+    checkAuth(req, res, next);
+})
 router(app)
 
 export {app};

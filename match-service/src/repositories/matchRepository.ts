@@ -56,6 +56,11 @@ export default class MatchRepository {
     return statement.run(userId1).lastInsertRowid;
   }
 
+  deleteMatchById(matchId: number) {
+    const statement = this.db.prepare("DELETE FROM matchs WHERE match_id = ?")
+    return statement.run(matchId)
+  }
+
   updateUser2(matchId: number, userId2: number) {
     const statement = this.db.prepare(
       "UPDATE matchs SET user_id_2 = ? WHERE match_id = ?"
