@@ -1,4 +1,4 @@
-import { Pokemon } from "pokenode-ts";
+import { ObjectToMapUndefinedError } from "../errors/ObjectToMapUndefinedError";
 
 export type Round = {
   id: number;
@@ -10,6 +10,8 @@ export type Round = {
 };
 
 export const RoundMapper = (object: any): Round => {
+  if (!object) throw new ObjectToMapUndefinedError();
+
   return {
     id: object.round_id,
     matchId: object.match_id,

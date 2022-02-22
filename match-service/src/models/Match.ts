@@ -1,17 +1,19 @@
-import { Pokemon } from "pokenode-ts";
+import { ObjectToMapUndefinedError } from "../errors/ObjectToMapUndefinedError";
 
 export type Match = {
   id: number;
   userId1: number;
   userId2: number;
-  pokemonsUser1: number[];
-  pokemonsUser2: number[];
+  pokemonsUser1: string[];
+  pokemonsUser2: string[];
   scoreUser1: number;
   scoreUser2: number;
   roundId: number;
 };
 
 export const MatchMapper = (object: any): Match => {
+  if (!object) throw new ObjectToMapUndefinedError();
+
   const pokemonsUser1 = object.pokemons_user_1?.split(",") ?? [];
   const pokemonsUser2 = object.pokemons_user_2?.split(",") ?? [];
   return {

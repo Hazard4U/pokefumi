@@ -1,3 +1,4 @@
+import { MatchNotReadyToStartError } from "../errors/MatchNotReadyToStartError";
 import RoundRepository from "../repositories/roundRepository";
 import MatchService from "./matchService";
 
@@ -17,6 +18,9 @@ export default class RoundService {
   }
 
   static createRound(matchId: number) {
+    if(!MatchService.isMatchRunnable(matchId)){
+      throw new MatchNotReadyToStartError()
+    }
     const roundInMatch = roundRepository.getRoundsByMatchId(matchId)?.length+1;
     const roundId = roundRepository.createRound(matchId, roundInMatch);
     MatchService.setRound(matchId, Number(roundId));

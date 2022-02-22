@@ -1,5 +1,5 @@
 import * as express from "express";
-import { Account } from "../models/Account";
+import { Account, GetAccountProperties } from "../models/Account";
 import RoundController from "../controllers/roundController";
 
 export const roundRoutes = express.Router();
@@ -19,11 +19,13 @@ roundRoutes.route("/").post((req, res) => {
 
 roundRoutes.route("/:id/pokemon").post((req, res) => {
   const roundId: number = parseFloat(req.params.id);
-  const {userId}: Account = res.locals.account;
+  const { userId }: Account = GetAccountProperties(res);
   const { pokemonId }: { pokemonId: number } = req.body;
   if (!pokemonId || pokemonId.toString().trim() === "") {
     res.status(400).send(`Le paramètre "pokemonId" ne peut être vide !`);
     return;
   }
-  res.status(200).json(RoundController.addPokemonToRound(roundId, userId, pokemonId));
+  res
+    .status(200)
+    .json(RoundController.addPokemonToRound(roundId, userId, pokemonId));
 });

@@ -1,7 +1,7 @@
 import { SqliteError } from "better-sqlite3";
 import * as express from "express";
-import { Account } from "../models/Account";
 import UserController from "../controllers/userController";
+import { Account, GetAccountProperties } from "../models/Account";
 export const userRoutes = express.Router();
 
 userRoutes.route("/").get((req, res) => {
@@ -14,24 +14,28 @@ userRoutes.route("/:id").get((req, res) => {
 });
 
 userRoutes.route("/").post((req, res) => {
-  const { name } : { name: string } = req.body;
+  const { name }: { name: string } = req.body;
   try {
     res.status(200).json(UserController.addUser(name));
   } catch (error) {
     if (error instanceof SqliteError) {
-      res.status(403).json(error)
+      res.status(403).json(error);
     } else {
-      res.status(500).json(error)
+      res.status(500).json(error);
     }
   }
 });
 
 userRoutes.route("/:id").delete((req, res) => {
   const userId: number = parseFloat(req.params.id);
-  const {userId: currentUserId}: Account = res.locals.account;
-  if(userId === currentUserId){
+  const { userId: currentUserId }: Account = GetAccountProperties(res);
+  if (userId === currentUserId) {
     res.status(200).json(UserController.deleteUser(userId));
-  }else{
-    res.status(403).json(new Error("Impossible de supprimer un autre utilisateur que soit!"))
+  } else {
+    res
+      .status(403)
+      .json(
+        new Error("Impossible de supprimer un autre utilisateur que soit!")
+      );
   }
-})
+});

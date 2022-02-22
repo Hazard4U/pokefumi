@@ -12,7 +12,7 @@ export const checkAuth = async (req: express.Request, res: express.Response, nex
     if (err) {
       res.status(400).json(err)
     } else {
-      res.locals.account = AccountMapper((value as jwt.JwtPayload).data)
+      res.locals.account = AccountMapper((value as jwt.JwtPayload).data);
       next()
     }
   })

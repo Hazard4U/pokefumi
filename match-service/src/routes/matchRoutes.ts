@@ -1,5 +1,5 @@
 import * as express from "express";
-import { Account } from "../models/Account";
+import { Account, GetAccountProperties } from "../models/Account";
 import MatchController from "../controllers/matchController";
 
 export const matchRoutes = express.Router();
@@ -13,21 +13,20 @@ matchRoutes.route("/:id").get((req, res) => {
 });
 
 matchRoutes.route("/").post((req, res) => {
-  const {userId2}: {userId2: number | null } = req.body;
-  const {userId}: Account = res.locals.account;
+  const { userId2 }: { userId2: number | null } = req.body;
+  const { userId }: Account = GetAccountProperties(res);
   res.status(200).json(MatchController.createMatch(userId, userId2));
 });
 
 matchRoutes.route("/:id/invite").post((req, res) => {
   const matchId: number = parseFloat(req.params.id);
-  const {userId2}: {userId2: number} = req.body;
+  const { userId2 }: { userId2: number } = req.body;
   res.status(200).json(MatchController.setUser2(matchId, userId2));
 });
 
-
 matchRoutes.route("/:id/pokemon").post((req, res) => {
   const matchId: number = parseFloat(req.params.id);
-  const {userId}: Account = res.locals.account;
+  const { userId }: Account = GetAccountProperties(res);
   let { pokemonId }: { pokemonId: number } = req.body;
   if (!pokemonId || pokemonId.toString().trim() === "") {
     res.status(400).send(`Le paramètre "pokemonId" ne peut être vide !`);
