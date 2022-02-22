@@ -3,7 +3,11 @@ import PokemonRepository from "../../src/repositories/pokemonRepository";
 const pokemonRepository = new PokemonRepository();
 
 export default class PokemonService {
-  static getAllPokemons = pokemonRepository.getAllPokemons.bind(pokemonRepository);
+  static getAllPokemons(){
+    return pokemonRepository.getAllPokemons();
+  }
 
-  static getPokemonById = pokemonRepository.getPokemonById.bind(pokemonRepository);
+  static getPokemonById(pokemonId: number){
+    return pokemonRepository.getPokemonById(pokemonId);
+  }
 }

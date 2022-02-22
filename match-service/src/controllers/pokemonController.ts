@@ -1,7 +1,11 @@
 import PokemonService from '../services/pokemonService'
 
 export default class MatchController {
-  static getAllPokemons = PokemonService.getAllPokemons;
+  static getAllPokemons(){
+    return PokemonService.getAllPokemons();
+  }
 
-  static getPokemonById = PokemonService.getPokemonById;
+  static getPokemonById(pokemonId: number){
+    return PokemonService.getPokemonById(pokemonId);
+  }
 }
