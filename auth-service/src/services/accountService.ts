@@ -1,6 +1,6 @@
 import AccountRepository from "../repositories/accountRepository";
 import UserService from "./userService";
-import { Account } from "../models/Accout";
+import { Account } from "../models/Account";
 
 const accountRepository = new AccountRepository();
 

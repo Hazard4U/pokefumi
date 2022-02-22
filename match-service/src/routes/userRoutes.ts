@@ -1,5 +1,6 @@
 import { SqliteError } from "better-sqlite3";
 import * as express from "express";
+import { Account } from "../models/Account";
 import UserController from "../controllers/userController";
 export const userRoutes = express.Router();
 
@@ -27,7 +28,7 @@ userRoutes.route("/").post((req, res) => {
 
 userRoutes.route("/:id").delete((req, res) => {
   const userId: number = parseFloat(req.params.id);
-  const {user_id: currentUserId}: {user_id: number} = res.locals.user;
+  const {userId: currentUserId}: Account = res.locals.account;
   if(userId === currentUserId){
     res.status(200).json(UserController.deleteUser(userId));
   }else{

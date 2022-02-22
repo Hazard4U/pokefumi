@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
 import DatabaseFactory from "../factories/databaseFactory";
 import fs from "fs";
-import { Account, AccountMapper, AccountWithPassword, AccountWithPasswordMapper } from "../models/Accout";
+import { Account, AccountMapper, AccountWithPassword, AccountWithPasswordMapper } from "../models/Account";
 import migrations from "../../db/migrations/migrations.json";
 
 export default class AccountRepository {

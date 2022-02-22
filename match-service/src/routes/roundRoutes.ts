@@ -1,4 +1,5 @@
 import * as express from "express";
+import { Account } from "../models/Account";
 import RoundController from "../controllers/roundController";
 
 export const roundRoutes = express.Router();
@@ -18,7 +19,7 @@ roundRoutes.route("/").post((req, res) => {
 
 roundRoutes.route("/:id/pokemon").post((req, res) => {
   const roundId: number = parseFloat(req.params.id);
-  const {user_id: userId}: {user_id: number} = res.locals.user;
+  const {userId}: Account = res.locals.account;
   const { pokemonId }: { pokemonId: number } = req.body;
   if (!pokemonId || pokemonId.toString().trim() === "") {
     res.status(400).send(`Le paramètre "pokemonId" ne peut être vide !`);

@@ -1,5 +1,5 @@
 import * as bcrypt from "bcrypt";
-import { Account, AccountMapper } from "../models/Accout";
+import { Account, AccountMapper } from "../models/Account";
 import AccountService from "../services/accountService";
 import jwt from "jsonwebtoken";
 import fs from "fs";

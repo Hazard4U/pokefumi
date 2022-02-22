@@ -1,6 +1,7 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
+import { AccountMapper } from '../models/Account'
 
 export const checkAuth = async (req: express.Request, res: express.Response, next: Function) => {
   const token = req.headers.authorization && req.headers.authorization.split(" ")[1] || ""
@@ -11,7 +12,7 @@ export const checkAuth = async (req: express.Request, res: express.Response, nex
     if (err) {
       res.status(400).json(err)
     } else {
-      res.locals.user = (value as jwt.JwtPayload).data
+      res.locals.account = AccountMapper((value as jwt.JwtPayload).data)
       next()
     }
   })
