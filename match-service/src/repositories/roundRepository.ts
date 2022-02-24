@@ -83,4 +83,11 @@ export default class RoundRepository {
     );
     statement.run(pokemonUser2, roundId);
   }
+
+  updateResultat(roundId: number, winnerId: number) {
+    const statement = this.db.prepare(
+      "UPDATE rounds SET resultat = ? WHERE round_id = ?"
+    );
+    statement.run(winnerId, roundId);
+  }
 }

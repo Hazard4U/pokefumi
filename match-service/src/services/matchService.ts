@@ -76,6 +76,28 @@ export default class MatchService {
     }
   }
 
+  static addPointToUser(matchId: number, userId: number) {
+    let match;
+    try {
+      match = MatchService.getMatchById(matchId);
+    } catch (error) {
+      throw new MatchNotFoundError(matchId);
+    }
+    let updateMethod;
+    let scoreToUpdate;
+    if (match.userId1 === userId) {
+      updateMethod = matchRepository.updateScoreUser1.bind(matchRepository);
+      scoreToUpdate = match.scoreUser2;
+    } else if (match.userId2 === userId) {
+      updateMethod = matchRepository.updateScoreUser2.bind(matchRepository);
+      scoreToUpdate = match.scoreUser1;
+    } else {
+      throw new UserNotFoundError(userId);
+    }
+
+      updateMethod(matchId, scoreToUpdate+1);
+  }
+
   static isMatchRunnable(matchId: number) {
     const match = this.getMatchById(matchId);
     const pokemonsIdUser1 = match.pokemonsUser1;

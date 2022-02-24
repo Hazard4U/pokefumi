@@ -88,4 +88,18 @@ export default class MatchRepository {
     );
     statement.run(pokemonsUser2, matchId);
   }
+
+  updateScoreUser1(matchId: number, score: number) {
+    const statement = this.db.prepare(
+      "UPDATE matchs SET score_user_1 = ? WHERE match_id = ?"
+    );
+    statement.run(score, matchId);
+  }
+
+  updateScoreUser2(matchId: number, score: string) {
+    const statement = this.db.prepare(
+      "UPDATE matchs SET score_user_2 = ? WHERE match_id = ?"
+    );
+    statement.run(score, matchId);
+  }
 }
